@@ -1,0 +1,17 @@
+import requests
+
+url = "https://api.sofascore.com/api/v1/unique-tournament/17/season/52186/events/last/0"
+
+headers = {"User-Agent": "Insomnia/2023.5.5"}
+
+response = requests.request("GET", url, headers=headers)
+jsondata = response.json()
+count = 0
+for game in jsondata['events']:
+    liga = game['tournament']['name']
+    homeTeam = game['homeTeam']['name']
+    homeScore = game['homeScore'].get('current')
+    awayScore = game['awayScore'].get('current')
+    awayTeam = game['awayTeam']['name']
+    count += 1
+    print(f"{count} {liga} || {homeTeam} {homeScore}: {awayScore} {awayTeam}")
